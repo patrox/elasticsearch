@@ -10,10 +10,12 @@ FROM dockerfile/java:oracle-java7
 # Install ElasticSearch.
 RUN \
   cd /tmp && \
-  wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.2.tar.gz && \
-  tar xvzf elasticsearch-1.3.2.tar.gz && \
-  rm -f elasticsearch-1.3.2.tar.gz && \
-  mv /tmp/elasticsearch-1.3.2 /elasticsearch
+  wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.tar.gz && \
+  tar xvzf elasticsearch-1.3.4.tar.gz && \
+  rm -f elasticsearch-1.3.4.tar.gz && \
+  mv /tmp/elasticsearch-1.3.4 /elasticsearch && \
+  /elasticsearch/bin/plugin -i elasticsearch/marvel/latest &&\
+  /elasticsearch/bin/plugin -i mobz/elasticsearch-head
 
 # Define mountable directories.
 VOLUME ["/data"]
@@ -32,3 +34,4 @@ CMD ["/elasticsearch/bin/elasticsearch"]
 #   - 9300: transport
 EXPOSE 9200
 EXPOSE 9300
+
