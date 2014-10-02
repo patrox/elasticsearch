@@ -13,9 +13,7 @@ RUN \
   wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.tar.gz && \
   tar xvzf elasticsearch-1.3.4.tar.gz && \
   rm -f elasticsearch-1.3.4.tar.gz && \
-  mv /tmp/elasticsearch-1.3.4 /elasticsearch && \
-  /elasticsearch/bin/plugin -i elasticsearch/marvel/latest &&\
-  /elasticsearch/bin/plugin -i mobz/elasticsearch-head
+  mv /tmp/elasticsearch-1.3.4 /elasticsearch 
 
 # Define mountable directories.
 VOLUME ["/data"]
@@ -25,6 +23,12 @@ ADD config/elasticsearch.yml /elasticsearch/config/elasticsearch.yml
 
 # Define working directory.
 WORKDIR /data
+
+RUN \
+  /elasticsearch/bin/plugin -i elasticsearch/marvel/latest && \
+  /elasticsearch/bin/plugin -i mobz/elasticsearch-head
+
+
 
 # Define default command.
 CMD ["/elasticsearch/bin/elasticsearch"]
